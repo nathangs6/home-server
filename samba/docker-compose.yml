@@ -1,0 +1,26 @@
+services:
+  samba:
+    image: ghcr.io/servercontainers/samba:latest
+    container_name: samba
+    restart: unless-stopped
+    cap_add:
+      - CAP_NET_ADMIN
+    env_file: ".env"
+    environment:
+      SAMBA_VOLUME_CONFIG_nas: >
+        [nas];
+        path = /shares/location;
+        available = yes;
+        browsable = yes;
+        writable = yes;
+        read only = no;
+        valid users = ${ACCOUNT_NAME};
+        public = yes;
+        guest ok = yes;
+    volumes:
+      - /srv/ext:/shares/location
+    ports:
+      - "${PORT_1}"
+      - "${PORT_2}"
+      - "${PORT_3}"
+      - "${PORT_4}"

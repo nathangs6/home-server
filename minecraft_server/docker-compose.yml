@@ -1,0 +1,16 @@
+services:
+  crafty:
+    container_name: crafty
+    image: registry.gitlab.com/crafty-controller/crafty-4:latest
+    restart: no
+    environment:
+        - TZ=Etc/UTC
+    ports:
+        - "${MANAGEMENT_PORT}"
+        - "${MINECRAFT_PORTS}"
+    volumes:
+        - /srv/data/crafty/backups:/crafty/backups
+        - /srv/data/crafty/logs:/crafty/logs
+        - /srv/data/crafty/servers:/crafty/servers
+        - /srv/data/crafty/config:/crafty/app/config
+        - /srv/data/crafty/import:/crafty/import
